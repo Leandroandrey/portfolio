@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio",
+  "compatibility_date": "2026-08-24",
+
+  // Worker só de arquivo estático: sem "main", porque não existe código de
+  // servidor aqui — o site inteiro é o que o Vite gera em dist/.
+  // É este bloco que o `wrangler deploy` procura; sem ele o comando falha
+  // dizendo que não achou entrypoint.
+  "assets": {
+    "directory": "./dist"
+  }
+}
