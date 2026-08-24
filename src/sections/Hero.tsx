@@ -3,6 +3,7 @@ import { gsap, useGSAP } from '../lib/gsap'
 import { useT } from '../i18n/useT'
 import HeroTerminal from '../components/HeroTerminal'
 import TextCarousel from '../components/originkit/ui/text-carousel'
+import TextEmerge from '../components/originkit/ui/text-emerge'
 import { ROLES } from '../data/contact'
 
 export default function Hero({ booted }: { booted: boolean }) {
@@ -109,9 +110,22 @@ export default function Hero({ booted }: { booted: boolean }) {
           </span>
         </h1>
 
-        <p className="hero-line text-lg md:text-2xl max-w-2xl mt-8 leading-snug">
-          {t.hero.lead}
-        </p>
+        {/*
+          Sem a classe hero-line de propósito: a entrada deste parágrafo é a
+          das palavras. Com as duas, ele subiria e apareceria por inteiro ao
+          mesmo tempo em que as palavras nasciam uma a uma — duas animações
+          disputando o mesmo elemento.
+
+          O delay de 1s é o lugar que ele já ocupava na sequência quando era
+          um hero-line (0.9 de atraso + 0.12 de stagger), pra ordem de leitura
+          da tela continuar a mesma.
+        */}
+        <TextEmerge
+          text={t.hero.lead}
+          play={booted}
+          delay={1}
+          className="text-lg md:text-2xl max-w-2xl mt-8 leading-snug"
+        />
 
         <p className="hero-line font-mono text-xs tracking-[0.3em] text-ink/60 mt-12">
           {t.hero.place}
