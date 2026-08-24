@@ -27,13 +27,21 @@ export default function Contact() {
   return (
     <section className="px-6 md:px-12 py-24 bg-ink text-paper">
       {/*
-        Sem flex-1 na coluna de texto, de propósito. Com ela a coluna esticava
-        até o fim da tela e o retrato ia junto pra beirada: numa tela de
-        1920px o conteúdo acabava em 690px e sobravam 900px de preto no meio
-        da seção. Sem flex-1 a coluna encolhe até o conteúdo e o retrato vem
-        logo atrás, virando um bloco só em qualquer largura.
+        A seção inteira — a fileira E o rodapé — vive dentro desta largura.
+        É o que dá alinhamento de verdade: sem ela, à esquerda tudo começava
+        na mesma guia mas à direita havia TRÊS finais diferentes (as pílulas
+        em 905, o retrato em 1225, a régua em 1872). O retrato não encostava
+        em nada, e centralizado ou não, o olho lê isso como torto.
+
+        Com o teto, o retrato e a régua terminam na mesma linha: duas guias,
+        uma de cada lado, e a composição fecha.
+
+        80rem e não a tela toda porque justify-between numa fileira de 1824px
+        joga o retrato pra beirada e abre 900px de vazio no meio — foi de
+        onde essa seção partiu.
       */}
-      <div className="flex flex-col-reverse md:flex-row md:items-center gap-12 md:gap-16">
+      <div className="max-w-[80rem]">
+      <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-12 md:gap-16">
         <div className="max-w-4xl min-w-0">
           <Kicker
             text={t.contact.kicker}
@@ -105,10 +113,9 @@ export default function Contact() {
       </div>
 
       {/*
-        A página acabava no ar: depois do telefone vinha espaço preto e o
-        documento terminava. O rodapé ocupa a largura inteira de propósito,
-        mesmo com o bloco acima sendo estreito — é a linha que dá chão pra
-        seção e avisa que acabou.
+        A régua termina onde o retrato termina, de propósito. Atravessando a
+        tela toda ela seria uma quarta borda solta à direita — o problema que
+        este bloco existe pra resolver.
       */}
       <footer className="mt-20 md:mt-28 pt-8 border-t-2 border-paper/15 flex flex-wrap items-center justify-between gap-6 font-mono text-xs tracking-[0.2em] text-paper/50">
         <p>&copy; {new Date().getFullYear()} LEANDRO GASPAR</p>
@@ -121,6 +128,7 @@ export default function Contact() {
           {t.footer.toTop} &#8593;
         </button>
       </footer>
+      </div>
     </section>
   )
 }
