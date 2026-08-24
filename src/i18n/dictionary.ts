@@ -54,6 +54,7 @@ export type Copy = {
     phoneNote: string
     photoAlt: string
   }
+  footer: { toTop: string }
   toggle: { label: string }
 }
 
@@ -157,6 +158,7 @@ export const dict: Record<Lang, Copy> = {
       phoneNote: 'Telefone',
       photoAlt: 'Retrato de Leandro Gaspar em pixel art, sobre fundo roxo.',
     },
+    footer: { toTop: 'VOLTAR AO TOPO' },
     toggle: { label: 'Mudar idioma para inglês' },
   },
 
@@ -259,6 +261,7 @@ export const dict: Record<Lang, Copy> = {
       phoneNote: 'Phone',
       photoAlt: 'Pixel art portrait of Leandro Gaspar on a purple background.',
     },
+    footer: { toTop: 'BACK TO TOP' },
     toggle: { label: 'Switch language to Portuguese' },
   },
 }

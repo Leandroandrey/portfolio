@@ -7,6 +7,8 @@ import type { TechName } from './tech'
 export const CONTACT = {
   email: 'leandro.andrey81@hotmail.com',
   phone: '(51) 99202-7682',
+  // Formato pro href tel:, que não aceita parêntese nem espaço.
+  phoneHref: '+5551992027682',
   linkedin: 'https://www.linkedin.com/in/leandroandrey/',
   github: 'https://github.com/Leandroandrey',
 } as const

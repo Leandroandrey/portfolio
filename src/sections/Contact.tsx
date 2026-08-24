@@ -1,5 +1,6 @@
 import Kicker from '../components/Kicker'
 import SplitHeading from '../components/SplitHeading'
+import { ScrollSmoother } from '../lib/gsap'
 import { useT } from '../i18n/useT'
 import { CONTACT } from '../data/contact'
 import euRoxo from '../img/eu-roxo.webp'
@@ -10,10 +11,30 @@ export default function Contact() {
   const linkClass =
     'font-mono text-sm md:text-base border-2 border-paper rounded-full px-6 py-3 hover:bg-plasma hover:text-ink hover:border-plasma transition-colors'
 
+  /*
+    O ScrollSmoother sequestra a rolagem: ele deixa a barra nativa andar e
+    move o conteúdo por transform. window.scrollTo até funciona, mas pula sem
+    a inércia do resto do site. Quando o smoother existe, quem manda é ele.
+    Em celular e com reduced-motion ele nem é criado — daí o get() devolver
+    null e o caminho nativo valer.
+  */
+  const aoTopo = () => {
+    const smoother = ScrollSmoother.get()
+    if (smoother) smoother.scrollTo(0, true)
+    else window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <section className="px-6 md:px-12 py-24 bg-ink text-paper">
+      {/*
+        Sem flex-1 na coluna de texto, de propósito. Com ela a coluna esticava
+        até o fim da tela e o retrato ia junto pra beirada: numa tela de
+        1920px o conteúdo acabava em 690px e sobravam 900px de preto no meio
+        da seção. Sem flex-1 a coluna encolhe até o conteúdo e o retrato vem
+        logo atrás, virando um bloco só em qualquer largura.
+      */}
       <div className="flex flex-col-reverse md:flex-row md:items-center gap-12 md:gap-16">
-        <div className="flex-1 min-w-0">
+        <div className="max-w-4xl min-w-0">
           <Kicker
             text={t.contact.kicker}
             className="font-mono text-xs tracking-[0.3em] text-plasma"
@@ -46,11 +67,15 @@ export default function Contact() {
             >
               GITHUB &#8599;
             </a>
+            {/*
+              O telefone era texto solto embaixo, sem link. Ficava como sobra
+              ao lado de três pílulas clicáveis — e no celular, que é onde
+              telefone importa, não dava pra tocar pra ligar.
+            */}
+            <a href={`tel:${CONTACT.phoneHref}`} className={linkClass}>
+              {CONTACT.phone}
+            </a>
           </div>
-
-          <p className="font-mono text-sm text-paper/70 mt-10">
-            {t.contact.phoneNote}: {CONTACT.phone}
-          </p>
         </div>
 
         <div className="shrink-0">
@@ -74,6 +99,24 @@ export default function Contact() {
           />
         </div>
       </div>
+
+      {/*
+        A página acabava no ar: depois do telefone vinha espaço preto e o
+        documento terminava. O rodapé ocupa a largura inteira de propósito,
+        mesmo com o bloco acima sendo estreito — é a linha que dá chão pra
+        seção e avisa que acabou.
+      */}
+      <footer className="mt-20 md:mt-28 pt-8 border-t-2 border-paper/15 flex flex-wrap items-center justify-between gap-6 font-mono text-xs tracking-[0.2em] text-paper/50">
+        <p>&copy; {new Date().getFullYear()} LEANDRO GASPAR</p>
+
+        <button
+          type="button"
+          onClick={aoTopo}
+          className="tracking-[0.2em] hover:text-plasma transition-colors cursor-pointer"
+        >
+          {t.footer.toTop} &#8593;
+        </button>
+      </footer>
     </section>
   )
 }
