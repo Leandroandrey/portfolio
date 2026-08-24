@@ -27,20 +27,18 @@ export default function Contact() {
   return (
     <section className="px-6 md:px-12 py-24 bg-ink text-paper">
       {/*
-        A seção inteira — a fileira E o rodapé — vive dentro desta largura.
-        É o que dá alinhamento de verdade: sem ela, à esquerda tudo começava
-        na mesma guia mas à direita havia TRÊS finais diferentes (as pílulas
-        em 905, o retrato em 1225, a régua em 1872). O retrato não encostava
-        em nada, e centralizado ou não, o olho lê isso como torto.
+        As guias desta seção são as MARGENS DA PÁGINA, as mesmas que todas as
+        outras usam. O texto encosta na esquerda, o retrato na direita, e a
+        régua do rodapé atravessa de uma à outra.
 
-        Com o teto, o retrato e a régua terminam na mesma linha: duas guias,
-        uma de cada lado, e a composição fecha.
+        Já tentei os dois extremos e os dois erram. Deixar a coluna de texto
+        crescer sozinha larga o retrato no meio, sem borda em comum com nada.
+        Pôr um teto de 80rem alinha, mas sobra meia tela vazia à direita.
 
-        80rem e não a tela toda porque justify-between numa fileira de 1824px
-        joga o retrato pra beirada e abre 900px de vazio no meio — foi de
-        onde essa seção partiu.
+        O que faltava não era encolher o espaço do meio: era ele virar o vão
+        ENTRE DUAS COLUNAS ancoradas, em vez de sobra. A régua embaixo é o que
+        fecha — ela costura os dois lados e o vão passa a ler como respiro.
       */}
-      <div className="max-w-[80rem]">
       <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-12 md:gap-16">
         <div className="max-w-4xl min-w-0">
           <Kicker
@@ -94,7 +92,7 @@ export default function Contact() {
             height={512}
             loading="lazy"
             decoding="async"
-            className="w-[clamp(9rem,22vw,16rem)] aspect-square rounded-full border-4 border-plasma"
+            className="w-[clamp(9rem,22vw,20rem)] aspect-square rounded-full border-4 border-plasma"
             /*
               imageRendering: pixelated é obrigatório aqui. O navegador
               suaviza imagem redimensionada por padrão, e isso transforma
@@ -113,9 +111,9 @@ export default function Contact() {
       </div>
 
       {/*
-        A régua termina onde o retrato termina, de propósito. Atravessando a
-        tela toda ela seria uma quarta borda solta à direita — o problema que
-        este bloco existe pra resolver.
+        A régua vai de margem a margem de propósito: é ela que amarra a coluna
+        de texto ao retrato lá do outro lado. Sem ela os dois eram só dois
+        objetos soltos com preto no meio.
       */}
       <footer className="mt-20 md:mt-28 pt-8 border-t-2 border-paper/15 flex flex-wrap items-center justify-between gap-6 font-mono text-xs tracking-[0.2em] text-paper/50">
         <p>&copy; {new Date().getFullYear()} LEANDRO GASPAR</p>
@@ -128,7 +126,6 @@ export default function Contact() {
           {t.footer.toTop} &#8593;
         </button>
       </footer>
-      </div>
     </section>
   )
 }
