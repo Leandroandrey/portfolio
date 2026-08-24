@@ -134,11 +134,16 @@ export default function SpinCursor({
     let hover = 0
 
     /*
-      Só checa quando alguma coisa mudou de lugar: o mouse mexeu, ou a página
-      rolou por baixo dele. Parado, não custa nada. Os 60ms de intervalo são
-      pra elementFromPoint não ser chamado a cada quadro — ele obriga o
-      navegador a recalcular layout, e o ScrollSmoother já deixa o layout sujo
-      o tempo todo.
+      Duas cadências, e cada uma existe por um motivo.
+
+      A rápida (60ms) responde a mexer o mouse e a rolar a página. Não pode
+      ser todo quadro: elementFromPoint obriga o navegador a recalcular
+      layout, e o ScrollSmoother já deixa o layout sujo o tempo todo.
+
+      A lenta (400ms) cobre o caso em que nada disso acontece e mesmo assim o
+      que está embaixo do ponteiro mudou — a tela de boot subindo depois do
+      clique no ENTRAR é exatamente isso. Sem ela o anel ficava preso, aceso
+      em cima do texto do hero, até a pessoa mexer o mouse.
     */
     let precisaChecar = true
     let ultimaChecagem = 0
@@ -213,7 +218,8 @@ export default function SpinCursor({
         vy += ((y - prevY) / dt - vy) * vEase
       }
 
-      if (precisaChecar && now - ultimaChecagem > 60) {
+      const desde = now - ultimaChecagem
+      if (dentro && (precisaChecar ? desde > 60 : desde > 400)) {
         ultimaChecagem = now
         precisaChecar = false
         // targetX, e nao x: quero o ponteiro de verdade, nao a mola que
