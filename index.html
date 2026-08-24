@@ -19,7 +19,25 @@
       property="og:description"
       content="Comecei montando máquinas de automação bancária na linha de produção. Hoje escrevo o software que roda dentro delas e os painéis que monitoram tudo."
     />
+    <meta property="og:url" content="%VITE_SITE_URL%/" />
+    <meta property="og:site_name" content="Leandro Gaspar" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <!-- URL ABSOLUTA, obrigatoriamente: o LinkedIn e o WhatsApp descartam
+         og:image relativo e o link sai sem imagem nenhuma. O endereço vem do
+         .env pra existir num lugar só quando mudar de domínio. -->
+    <meta property="og:image" content="%VITE_SITE_URL%/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Leandro Gaspar — Desenvolvedor Full Stack. Gravataí, RS, Brasil."
+    />
+
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/og.png" />
+
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
