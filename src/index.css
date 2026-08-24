@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/*
+  No Tailwind v4 o tema mora aqui, em CSS — não existe mais tailwind.config.js.
+  Cada --color-* vira bg-*, text-*, border-*. Cada --font-* vira font-*.
+*/
+@theme {
+  --color-ink: #0d0d0d;
+  --color-paper: #f4f1ea;
+  --color-smoke: #8a8578;
+  /*
+     Roxo da galáxia da tela de boot, em duas variantes porque nenhuma cor
+     passa no AA sobre os dois fundos ao mesmo tempo (medido, não chutado):
+
+       plasma      #A050FF  4.71:1 sobre preto  -> seções escuras
+       plasma-deep #8844D9  4.80:1 sobre osso   -> seções claras
+
+     E texto EM CIMA do roxo tem que ser preto: osso sobre #A050FF dá
+     3.66:1 e reprova.
+  */
+  --color-plasma: #A050FF;
+  --color-plasma-deep: #8844D9;
+
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, "Courier New", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Quem pediu menos movimento no sistema não deve nem levar scroll animado. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-plasma);
+  color: var(--color-ink);
+}
+
+/*
+  mask: 'lines' do SplitText embrulha cada linha numa caixa com overflow clip.
+  Com leading apertado (0.9) essa caixa fica MAIS BAIXA que o glifo, e o
+  acento de maiúscula acentuada — o Í de CONSTRUÍ — sobra pra fora e some.
+  O padding aumenta a caixa o suficiente pro acento caber. Não dá pra desfazer
+  o deslocamento com margem negativa: a margem sairia da máscara e voltaria a
+  ser cortada, então o título desce esses poucos pixels e pronto.
+*/
+.linha-split {
+  padding-top: 0.14em;
+}
