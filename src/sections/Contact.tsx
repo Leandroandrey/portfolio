@@ -91,11 +91,15 @@ export default function Contact() {
               imageRendering: pixelated é obrigatório aqui. O navegador
               suaviza imagem redimensionada por padrão, e isso transforma
               pixel art em borrão — justamente o que o estilo não pode ter.
-              data-speed é do ScrollSmoother: o retrato sobe um pouco mais
-              devagar que o texto ao lado.
+
+              Aqui NÃO vai data-speed. O parallax do ScrollSmoother aplica um
+              translateY que muda conforme a página rola: o retrato ficava
+              entre 28px e 5px acima do centro do texto, nunca alinhado com
+              o bloco ao lado. Parallax funciona em coisa solta no fundo —
+              em elemento que precisa ler como par de um texto, ele só parece
+              desalinho.
             */
             style={{ imageRendering: 'pixelated' }}
-            data-speed="0.92"
           />
         </div>
       </div>
